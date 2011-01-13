@@ -483,6 +483,9 @@ function usage() {
 	  wireless
 	  server
 	  obex
+	  libs
+	  essential (use this with -q)
+	  dev
 
 	examples:
 
