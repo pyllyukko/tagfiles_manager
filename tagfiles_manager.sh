@@ -42,6 +42,7 @@
 declare -r TAGFILES_DIR="/home/pyllyukko/work/slackware/tagfiles/13.1/tagfiles"
 declare -r SLACKWARE_DIR="/mnt/slackware/slackware"
 declare -r SLACKWARE_VERSION="slackware-13.1"
+declare -r FTP="ftp://ftp.slackware.com/pub/slackware/${SLACKWARE_VERSION}/slackware/"
 # -A option declares associative array.
 declare -A CAT_DESC=(
   ["a"]="The base system"
@@ -342,12 +343,21 @@ function copy_tagfiles() {
 ################################################################################
 function get_tagfiles_from_net() {
   pushd "${TAGFILES_DIR}" || return 1
-  [ ! -f ".listing" ] && wget --no-remove-listing "ftp://ftp.slackware.com/pub/slackware/${SLACKWARE_VERSION}/slackware/"
-  local -a CATEGORIES=(`awk '/^d.+[a-z]\r$/{print$9}' .listing`)
+  [ ! -f ".listing" ] && wget -nv --no-remove-listing "${FTP}"
+  local -a CATEGORIES=(`awk '/^d.+[a-z]\r$/{sub(/\r$/, "", $9);print$9}' .listing`)
   local    CATEGORY
+  local -a FILES=(maketag maketag.ez tagfile)
+  local    FILE
   for CATEGORY in ${CATEGORIES[*]}
   do
-    echo "${FUNCNAME}(): category=${CATEGORY}"
+    #pushd "${CATEGORY}"
+    #echo "${FUNCNAME}(): category=${CATEGORY}"
+    for FILE in ${FILES[*]}
+    do
+      wget -nv -P "${CATEGORY}" "${FTP}/${CATEGORY}/${FILE}"
+    done
+    #echo "${FILES[*]/#/CATEGORY}"
+    #popd
   done
   popd
   return 0
