@@ -2,7 +2,7 @@
 ################################################################################
 # file:		tagfiles_manager.sh
 # created:	29-09-2010
-# modified:	2011 Jan 13
+# modified:	2011 Jan 28
 #
 # the purpose of this script is to be able to produce more minimal slackware
 # installations without all the multimedia libraries or server software
@@ -41,6 +41,7 @@
 ################################################################################
 declare -r TAGFILES_DIR="/home/pyllyukko/work/slackware/tagfiles/13.1/tagfiles"
 declare -r SLACKWARE_DIR="/mnt/slackware/slackware"
+declare -r SLACKWARE_VERSION="slackware-13.1"
 # -A option declares associative array.
 declare -A CAT_DESC=(
   ["a"]="The base system"
@@ -339,6 +340,19 @@ function copy_tagfiles() {
   return 0
 } # copy_tagfiles()
 ################################################################################
+function get_tagfiles_from_net() {
+  pushd "${TAGFILES_DIR}" || return 1
+  [ ! -f ".listing" ] && wget --no-remove-listing "ftp://ftp.slackware.com/pub/slackware/${SLACKWARE_VERSION}/slackware/"
+  local -a CATEGORIES=(`awk '/^d.+[a-z]\r$/{print$9}' .listing`)
+  local    CATEGORY
+  for CATEGORY in ${CATEGORIES[*]}
+  do
+    echo "${FUNCNAME}(): category=${CATEGORY}"
+  done
+  popd
+  return 0
+} # get_tagfiles_from_net()
+################################################################################
 function remove_tagfiles() {
   # DANGEROUS!!!
   [ ! -d "${1}" ] && {
@@ -435,6 +449,7 @@ function usage() {
 
 	options:
 	  -b	revert back to original tagfiles (copy tagfile.original -> tagfile)
+	  -f	get tagfiles from FTP
 	  -t	copy tagfiles from source
 	        (default: ${SLACKWARE_DIR})
 	  -T	delete (local) tagfiles from destination
@@ -744,7 +759,7 @@ function enable_required_packages() {
 # NOTE: we could use $* and shift to go through all the provided parameters,
 #       that way the packages/categories defined with each parameter wouldn't
 #       need to be quoted. but as for now, we'll go with getopts and quotes.
-while getopts "bc:C:gho:O:qr:R:s:S:tT" OPTION
+while getopts "bc:C:fgho:O:qr:R:s:S:tT" OPTION
 do
   case "${OPTION}" in
     "b") revert_tagfiles_from_original ;;
@@ -758,6 +773,7 @@ do
       CATEGORIES="${OPTARG}"
       modify_category "${CATEGORIES}" SKP
     ;;
+    "f") get_tagfiles_from_net			;;
     "g") grep_all_statuses "${TAGFILES_DIR}"  ;;
     "h") usage ;;
     "o")
