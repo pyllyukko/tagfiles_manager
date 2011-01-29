@@ -78,6 +78,7 @@ networking_PACKAGES=(
   openldap-client
   mailx
   iputils
+  biff+comsat
 )
 essential_PACKAGES=(
   glibc-solibs
@@ -102,6 +103,7 @@ essential_PACKAGES=(
   logrotate
   diffutils
   sqlite
+  file
   ${networking_PACKAGES[*]}
 )
 libs_PACKAGES=(
