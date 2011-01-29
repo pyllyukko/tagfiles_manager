@@ -2,7 +2,7 @@
 ################################################################################
 # file:		tagfiles_manager.sh
 # created:	29-09-2010
-# modified:	2011 Jan 28
+# modified:	2011 Jan 29
 #
 # the purpose of this script is to be able to produce more minimal slackware
 # installations without all the multimedia libraries or server software
@@ -76,6 +76,8 @@ networking_PACKAGES=(
   curl
   tcpdump
   openldap-client
+  mailx
+  iputils
 )
 essential_PACKAGES=(
   glibc-solibs
