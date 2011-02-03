@@ -2,7 +2,7 @@
 ################################################################################
 # file:		tagfiles_manager.sh
 # created:	29-09-2010
-# modified:	2011 Jan 29
+# modified:	2011 Feb 03
 #
 # the purpose of this script is to be able to produce more minimal slackware
 # installations without all the multimedia libraries or server software
@@ -79,6 +79,7 @@ networking_PACKAGES=(
   mailx
   iputils
   biff+comsat
+  iproute2
 )
 essential_PACKAGES=(
   glibc-solibs
@@ -115,6 +116,8 @@ libs_PACKAGES=(
   glib2
   libidn
   readline
+  libgcrypt
+  libgpg-error
 )
 dev_PACKAGES=(
   patch
