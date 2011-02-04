@@ -2,7 +2,7 @@
 ################################################################################
 # file:		tagfiles_manager.sh
 # created:	29-09-2010
-# modified:	2011 Feb 03
+# modified:	2011 Feb 04
 #
 # the purpose of this script is to be able to produce more minimal slackware
 # installations without all the multimedia libraries or server software
@@ -80,6 +80,7 @@ networking_PACKAGES=(
   iputils
   biff+comsat
   iproute2
+  ntp
 )
 essential_PACKAGES=(
   glibc-solibs
@@ -118,6 +119,7 @@ libs_PACKAGES=(
   readline
   libgcrypt
   libgpg-error
+  loudmouth
 )
 dev_PACKAGES=(
   patch
@@ -134,6 +136,9 @@ dev_PACKAGES=(
   pkg-config
   python
   'gcc-g++'
+  strace
+  bison
+  flex
   ${libs_PACKAGES[*]}
 )
 bluetooth_PACKAGES=(
