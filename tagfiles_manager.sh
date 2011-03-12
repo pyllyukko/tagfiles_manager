@@ -2,7 +2,7 @@
 ################################################################################
 # file:		tagfiles_manager.sh
 # created:	29-09-2010
-# modified:	2011 Feb 04
+# modified:	2011 Mar 12
 #
 # the purpose of this script is to be able to produce more minimal slackware
 # installations without all the multimedia libraries or server software
@@ -30,6 +30,8 @@
 #   - add a check_subcategory_packages_from_actual_categories() function
 #     so we see if some subcaterory's packages are for instace REC in some category
 #   - function to print a chart about current and original states
+#   - verification that we enabled/disabled the right amount of packages,
+#     simple grep -c from .original should do?
 #
 ################################################################################
 [ ${BASH_VERSINFO[0]} -ne 4 ] && {
@@ -81,6 +83,7 @@ networking_PACKAGES=(
   biff+comsat
   iproute2
   ntp
+  gnutls
 )
 essential_PACKAGES=(
   glibc-solibs
@@ -106,6 +109,7 @@ essential_PACKAGES=(
   diffutils
   sqlite
   file
+  man-pages
   ${networking_PACKAGES[*]}
 )
 libs_PACKAGES=(
@@ -120,6 +124,8 @@ libs_PACKAGES=(
   libgcrypt
   libgpg-error
   loudmouth
+  mhash
+  expat
 )
 dev_PACKAGES=(
   patch
@@ -139,6 +145,7 @@ dev_PACKAGES=(
   strace
   bison
   flex
+  guile
   ${libs_PACKAGES[*]}
 )
 bluetooth_PACKAGES=(
@@ -551,15 +558,17 @@ function print_package_descriptions() {
 } # print_package_descriptions()
 ################################################################################
 function modify_packages_from_reference() {
-  # this function modifies OPT packages in category $1
+  # this function modifies OPT/REC packages in category $1
   # $1 = category
   # $2 = reference (OPT, REC...)
   # $3 = ADD|SKP
-  local CATEGORIES="${1}"
-  local CATEGORY
+  local    CATEGORIES="${1}"
+  local    CATEGORY
   local -a PACKAGES
   local    PACKAGE
-  local MESSAGE
+  local    MESSAGE
+  local -i PKGS_MODIFIED
+  local -i CAT_REF_COUNT
 
   [[ ! "${3}" =~ "^(ADD|SKP)$" ]] && {
     echo "${FUNCNAME}(): ERROR!" 1>&2
@@ -572,13 +581,20 @@ function modify_packages_from_reference() {
       echo "${FUNCNAME}(): ERROR: directory for category \`${CATEGORY}' does not exist!" 1>&2
       continue
     }
+
+    # what message to print
     case "${2}:${3}" in
       "OPT:ADD") MESSAGE="enabling all OPTional"	;;
       "OPT:SKP") MESSAGE="disabling all OPTional"	;;
       "REC:ADD") MESSAGE="enabling all RECommended"	;;
       "REC:SKP") MESSAGE="disabling all RECommended"	;;
     esac
-    echo "${FUNCNAME}(): ${MESSAGE} packages in category ${CATEGORY}"
+
+    # this way we can check that we enabled/disabled the right amount of packages
+    CAT_REF_COUNT=`grep -c ":${2}$" "${TAGFILES_DIR}/${CATEGORY}/tagfile.original"`
+    PKGS_MODIFIED=0
+
+    echo "${FUNCNAME}(): ${MESSAGE} packages in category ${CATEGORY} (${CAT_REF_COUNT} packages)"
 
     # TODO: add md5sum check for .original here!
 
@@ -594,10 +610,11 @@ function modify_packages_from_reference() {
       #echo "${PACKAGE}"
       #sed -n '/^'"${PACKAGE}"':'"${2}"'$/p' "${TAGFILES_DIR}/${CATEGORY}/tagfile"
 
-      sed -i 's/^\('"${PACKAGE}"'\):[A-Z]\+/\1:'"${3}"'/' "${TAGFILES_DIR}/${CATEGORY}/tagfile"
+      sed -i 's/^\('"${PACKAGE}"'\):[A-Z]\+/\1:'"${3}"'/' "${TAGFILES_DIR}/${CATEGORY}/tagfile" && ((PKGS_MODIFIED++))
     done
+    echo "${FUNCNAME}(): done. state of ${PKGS_MODIFIED} packages modified."
     #done | xargs -I '{}' echo "sed -n '{}' \"${TAGFILES_DIR}/${CATEGORY}/tagfile\""
-  done
+  done # for CATEGORY in ${CATEGORIES}
   return 0
 } # modify_packages_from_reference()
 ################################################################################
