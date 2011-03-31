@@ -2,7 +2,7 @@
 ################################################################################
 # file:		tagfiles_manager.sh
 # created:	29-09-2010
-# modified:	2011 Mar 12
+# modified:	2011 Mar 31
 #
 # the purpose of this script is to be able to produce more minimal slackware
 # installations without all the multimedia libraries or server software
@@ -110,6 +110,7 @@ essential_PACKAGES=(
   sqlite
   file
   man-pages
+  sysstat
   ${networking_PACKAGES[*]}
 )
 libs_PACKAGES=(
