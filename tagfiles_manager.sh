@@ -2,7 +2,7 @@
 ################################################################################
 # file:		tagfiles_manager.sh
 # created:	29-09-2010
-# modified:	2011 Mar 31
+# modified:	2011 Apr 29
 #
 # the purpose of this script is to be able to produce more minimal slackware
 # installations without all the multimedia libraries or server software
@@ -25,7 +25,7 @@
 #     -> list supplied within quotes to each parameter
 #   * only one function... not enable disable
 #   - !!! if no categories specified to (at least) OPT & REC, disable from all categories !!!
-#     - make keyword all work in all functions
+#     - make keyword 'all' work in all functions
 #   - rename to tagfiles bakery=)
 #   - add a check_subcategory_packages_from_actual_categories() function
 #     so we see if some subcaterory's packages are for instace REC in some category
@@ -41,9 +41,9 @@
 }
 [ ${BASH_VERSINFO[0]} -eq 4 ] && shopt -s compat31
 ################################################################################
-declare -r TAGFILES_DIR="/home/pyllyukko/work/slackware/tagfiles/13.1/tagfiles"
+declare -r TAGFILES_DIR="/home/pyllyukko/work/slackware/tagfiles/13.37/tagfiles"
 declare -r SLACKWARE_DIR="/mnt/slackware/slackware"
-declare -r SLACKWARE_VERSION="slackware-13.1"
+declare -r SLACKWARE_VERSION="slackware-13.37"
 declare -r FTP="ftp://ftp.slackware.com/pub/slackware/${SLACKWARE_VERSION}/slackware/"
 # -A option declares associative array.
 declare -A CAT_DESC=(
@@ -111,6 +111,9 @@ essential_PACKAGES=(
   file
   man-pages
   sysstat
+  mdadm
+  cryptsetup
+  mkinitrd
   ${networking_PACKAGES[*]}
 )
 libs_PACKAGES=(
@@ -162,6 +165,7 @@ alsa_PACKAGES=(
   alsa-utils
 )
 # this should be quite complete set (at least in slackware 13.1)
+# 29.4.2011: added iwlwifi-100-ucode & iwlwifi-6xxx-ucode from 13.37
 wireless_PACKAGES=(
   wireless-tools
   rt2860-firmware
@@ -177,6 +181,8 @@ wireless_PACKAGES=(
   iwlwifi-5000-ucode
   iwlwifi-5150-ucode
   iwlwifi-6000-ucode
+  iwlwifi-100-ucode
+  iwlwifi-6xxx-ucode
   iw
   wpa_supplicant
 )
@@ -708,6 +714,10 @@ function check_opt_rec_packages() {
     find "${TAGFILES_DIR}" \( ! -wholename "${TAGFILES_DIR}" -a -type d \) -maxdepth 1 | \
     awk -F'/' '{print$NF}'
   `)
+  [ ${#CATEGORY_DIRS[*]} -eq 0 ] && {
+    echo "${FUNCNAME}(): error!" 1>&2
+    return 1
+  }
   for CATEGORY in ${CATEGORY_DIRS[*]}
   do
     #echo "${FUNCNAME}(): DEBUG: checking ${CATEGORY}"
