@@ -2,7 +2,7 @@
 ################################################################################
 # file:		tagfiles_manager.sh
 # created:	29-09-2010
-# modified:	2011 Apr 29
+# modified:	2011 Jun 11
 #
 # the purpose of this script is to be able to produce more minimal slackware
 # installations without all the multimedia libraries or server software
@@ -68,6 +68,7 @@ declare -A CAT_DESC=(
 
 # here are some "subcategories" i defined
 
+# 30.4.2011: added tcp_wrappers
 networking_PACKAGES=(
   network-scripts
   net-tools
@@ -84,7 +85,9 @@ networking_PACKAGES=(
   iproute2
   ntp
   gnutls
+  tcp_wrappers
 )
+# 30.4.2011: added cpio (to be used with mkinitrd)
 essential_PACKAGES=(
   glibc-solibs
   kernel-huge-smp
@@ -114,8 +117,12 @@ essential_PACKAGES=(
   mdadm
   cryptsetup
   mkinitrd
+  cpio
   ${networking_PACKAGES[*]}
 )
+# 29.4.2011: added libmpc
+# 15.5.2011: added libpcap
+# 21.5.2011: added libnl, at least tcpdump requires this
 libs_PACKAGES=(
   mpfr
   glibc
@@ -130,6 +137,10 @@ libs_PACKAGES=(
   loudmouth
   mhash
   expat
+  libmpc
+  libpcap
+  libnl
+  pcre
 )
 dev_PACKAGES=(
   patch
@@ -368,6 +379,7 @@ function copy_tagfiles() {
 } # copy_tagfiles()
 ################################################################################
 function get_tagfiles_from_net() {
+  [ ! -d "${TAGFILES_DIR}" ] && mkdir -p -v "${TAGFILES_DIR}"
   pushd "${TAGFILES_DIR}" || return 1
   [ ! -f ".listing" ] && wget -nv --no-remove-listing "${FTP}"
   local -a CATEGORIES=(`awk '/^d.+[a-z]\r$/{sub(/\r$/, "", $9);print$9}' .listing`)
@@ -381,6 +393,7 @@ function get_tagfiles_from_net() {
     for FILE in ${FILES[*]}
     do
       wget -nv -P "${CATEGORY}" "${FTP}/${CATEGORY}/${FILE}"
+      [ "${FILE}" = "tagfile" ] && cp -v "${CATEGORY}/${FILE}" "${CATEGORY}/${FILE}.original"
     done
     #echo "${FILES[*]/#/CATEGORY}"
     #popd
