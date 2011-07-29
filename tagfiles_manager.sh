@@ -2,7 +2,7 @@
 ################################################################################
 # file:		tagfiles_manager.sh
 # created:	29-09-2010
-# modified:	2011 Jun 11
+# modified:	2011 Jul 29
 #
 # the purpose of this script is to be able to produce more minimal slackware
 # installations without all the multimedia libraries or server software
@@ -32,6 +32,7 @@
 #   - function to print a chart about current and original states
 #   - verification that we enabled/disabled the right amount of packages,
 #     simple grep -c from .original should do?
+#   - sendmail & procmail might be required by cron?
 #
 ################################################################################
 [ ${BASH_VERSINFO[0]} -ne 4 ] && {
@@ -69,6 +70,7 @@ declare -A CAT_DESC=(
 # here are some "subcategories" i defined
 
 # 30.4.2011: added tcp_wrappers
+# 19.6.2011: added icmpinfo
 networking_PACKAGES=(
   network-scripts
   net-tools
@@ -86,11 +88,17 @@ networking_PACKAGES=(
   ntp
   gnutls
   tcp_wrappers
+  icmpinfo
 )
 # 30.4.2011: added cpio (to be used with mkinitrd)
+# 13.6.2011: added utempter (required at least by screen, but probably
+#            many others too)
+# 16.6.2011: added lvm2 & kernel-generic-smp
+# 29.7.2011: added acct (process accounting)
 essential_PACKAGES=(
   glibc-solibs
   kernel-huge-smp
+  kernel-generic-smp
   lilo
   udev
   aaa_terminfo
@@ -118,11 +126,15 @@ essential_PACKAGES=(
   cryptsetup
   mkinitrd
   cpio
+  utempter
+  lvm2
+  acct
   ${networking_PACKAGES[*]}
 )
 # 29.4.2011: added libmpc
 # 15.5.2011: added libpcap
 # 21.5.2011: added libnl, at least tcpdump requires this
+# 11.6.2011: added pcre, db44 & neon (neon required by svn)
 libs_PACKAGES=(
   mpfr
   glibc
@@ -141,7 +153,11 @@ libs_PACKAGES=(
   libpcap
   libnl
   pcre
+  db44
+  neon
 )
+# 11.6.2011: added subversion
+# 19.6.2011: added ruby
 dev_PACKAGES=(
   patch
   make
@@ -161,6 +177,8 @@ dev_PACKAGES=(
   bison
   flex
   guile
+  subversion
+  ruby
   ${libs_PACKAGES[*]}
 )
 bluetooth_PACKAGES=(
