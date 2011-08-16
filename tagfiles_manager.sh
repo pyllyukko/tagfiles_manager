@@ -2,7 +2,7 @@
 ################################################################################
 # file:		tagfiles_manager.sh
 # created:	29-09-2010
-# modified:	2011 Aug 15
+# modified:	2011 Aug 16
 #
 # the purpose of this script is to be able to produce more minimal slackware
 # installations without all the multimedia libraries or server software
@@ -15,6 +15,7 @@
 #   - http://www.slackbook.org/html/package-management-making-tags-and-tagfiles.html
 #   - http://www.slackwiki.org/Tagfile_Install
 #   - http://connie.slackware.com/~vbatts/minimal/
+#   - http://www.microlinux.fr/slackware/tagfiles/
 #
 # TODO:
 #   - a switch to make use of maketags
@@ -34,6 +35,7 @@
 #   - verification that we enabled/disabled the right amount of packages,
 #     simple grep -c from .original should do?
 #   - sendmail & procmail might be required by cron?
+#   - support downloading/using tagfiles from http://www.microlinux.fr/slackware/tagfiles/public-server/
 #
 ################################################################################
 [ ${BASH_VERSINFO[0]} -ne 4 ] && {
