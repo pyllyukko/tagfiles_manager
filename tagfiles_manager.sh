@@ -2,7 +2,7 @@
 ################################################################################
 # file:		tagfiles_manager.sh
 # created:	29-09-2010
-# modified:	2011 Jul 29
+# modified:	2011 Aug 15
 #
 # the purpose of this script is to be able to produce more minimal slackware
 # installations without all the multimedia libraries or server software
@@ -14,6 +14,7 @@
 #   - http://www.slackware.com/install/setup.php
 #   - http://www.slackbook.org/html/package-management-making-tags-and-tagfiles.html
 #   - http://www.slackwiki.org/Tagfile_Install
+#   - http://connie.slackware.com/~vbatts/minimal/
 #
 # TODO:
 #   - a switch to make use of maketags
@@ -43,7 +44,7 @@
 [ ${BASH_VERSINFO[0]} -eq 4 ] && shopt -s compat31
 ################################################################################
 declare -r TAGFILES_DIR="/home/pyllyukko/work/slackware/tagfiles/13.37/tagfiles"
-declare -r SLACKWARE_DIR="/mnt/slackware/slackware"
+declare    SLACKWARE_DIR="/mnt/slackware/slackware"
 declare -r SLACKWARE_VERSION="slackware-13.37"
 declare -r FTP="ftp://ftp.slackware.com/pub/slackware/${SLACKWARE_VERSION}/slackware/"
 # -A option declares associative array.
@@ -95,6 +96,7 @@ networking_PACKAGES=(
 #            many others too)
 # 16.6.2011: added lvm2 & kernel-generic-smp
 # 29.7.2011: added acct (process accounting)
+# 30.7.2011: added sysvinit-functions & sysstat
 essential_PACKAGES=(
   glibc-solibs
   kernel-huge-smp
@@ -129,6 +131,8 @@ essential_PACKAGES=(
   utempter
   lvm2
   acct
+  sysstat
+  sysvinit-functions
   ${networking_PACKAGES[*]}
 )
 # 29.4.2011: added libmpc
@@ -375,6 +379,12 @@ function copy_tagfiles() {
   local -a DIRS
   local    DIR
   local    CATEGORY
+  [ ! -f "${1}/FILE_LIST" -o \
+    ! -f "${1}/MANIFEST.bz2" -o \
+    ! -f "${1}/a/tagfile" ] && {
+    echo "${FUNCNAME}(): error: not a proper slackware directory!" 1>&2
+    return 1
+  }
   DIRS=(`find "${1}" \( ! -wholename "${1}" -a -type d \) -maxdepth 1`)
 
   for DIR in ${DIRS[*]}
@@ -515,14 +525,14 @@ function usage() {
 	usage: ${0##*/} <option>
 
 	options:
-	  -b	revert back to original tagfiles (copy tagfile.original -> tagfile)
-	  -f	get tagfiles from FTP
-	  -t	copy tagfiles from source
-	        (default: ${SLACKWARE_DIR})
-	  -T	delete (local) tagfiles from destination
-	        (default: ${TAGFILES_DIR})
-	  -g	grep all (current) statuses
-	  -h	this help
+	  -b		revert back to original tagfiles (copy tagfile.original -> tagfile)
+	  -f		get tagfiles from FTP
+	  -t dir	copy tagfiles from source
+	  		(eg. /mnt/dvd/slackware)
+	  -T		delete (local) tagfiles from destination
+	        	(default: ${TAGFILES_DIR})
+	  -g		grep all (current) statuses
+	  -h		this help
 
 	  NOTE: remember the quotes, we use getopts here.
 
@@ -741,12 +751,16 @@ function check_opt_rec_packages() {
 
   # find all directories (categories) inside $TAGFILES_DIR
   # and print the last directory (field)
+  [ ! -d "${TAGFILES_DIR}" ] && {
+    echo "${FUNCNAME}(): error: tagfiles directory (\`${TAGFILES_DIR}') does not exist!" 1>&2
+    return 1
+  }
   local -a CATEGORY_DIRS=(` \
     find "${TAGFILES_DIR}" \( ! -wholename "${TAGFILES_DIR}" -a -type d \) -maxdepth 1 | \
     awk -F'/' '{print$NF}'
   `)
   [ ${#CATEGORY_DIRS[*]} -eq 0 ] && {
-    echo "${FUNCNAME}(): error!" 1>&2
+    echo "${FUNCNAME}(): warning: no tagfiles found!" 1>&2
     return 1
   }
   for CATEGORY in ${CATEGORY_DIRS[*]}
@@ -840,7 +854,7 @@ function enable_required_packages() {
 # NOTE: we could use $* and shift to go through all the provided parameters,
 #       that way the packages/categories defined with each parameter wouldn't
 #       need to be quoted. but as for now, we'll go with getopts and quotes.
-while getopts "bc:C:fgho:O:qr:R:s:S:tT" OPTION
+while getopts "bc:C:fgho:O:qr:R:s:S:t:T" OPTION
 do
   case "${OPTION}" in
     "b") revert_tagfiles_from_original ;;
@@ -855,8 +869,8 @@ do
       modify_category "${CATEGORIES}" SKP
     ;;
     "f") get_tagfiles_from_net			;;
-    "g") grep_all_statuses "${TAGFILES_DIR}"  ;;
-    "h") usage ;;
+    "g") grep_all_statuses "${TAGFILES_DIR}"	;;
+    "h") usage					;;
     "o")
       CATEGORIES="${OPTARG}"
       modify_packages_from_reference "${CATEGORIES}" OPT ADD
@@ -884,11 +898,15 @@ do
       SUBCATEGORIES="${OPTARG}"
       modify_subcategories "${SUBCATEGORIES}" SKP
     ;;
-    "t") copy_tagfiles     "${SLACKWARE_DIR}" ;;
-    "T") remove_tagfiles   "${TAGFILES_DIR}"  ;;
+    "t")
+      SLACKWARE_DIR="${OPTARG}"
+      copy_tagfiles "${SLACKWARE_DIR}"
+    ;;
+    "T") remove_tagfiles   "${TAGFILES_DIR}" 	;;
   esac
 done
 
+echo -n $'\n'
 # final check to see if there's still some OPT or REC packages left
 check_opt_rec_packages
 
