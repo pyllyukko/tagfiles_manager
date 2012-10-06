@@ -2,7 +2,7 @@
 ################################################################################
 # file:		tagfiles_manager.sh
 # created:	29-09-2010
-# modified:	2011 Aug 16
+# modified:	2012 Jul 09
 #
 # the purpose of this script is to be able to produce more minimal slackware
 # installations without all the multimedia libraries or server software
@@ -74,6 +74,7 @@ declare -A CAT_DESC=(
 
 # 30.4.2011: added tcp_wrappers
 # 19.6.2011: added icmpinfo
+# 11.9.2011: added ca-certificates
 networking_PACKAGES=(
   network-scripts
   net-tools
@@ -92,6 +93,7 @@ networking_PACKAGES=(
   gnutls
   tcp_wrappers
   icmpinfo
+  ca-certificates
 )
 # 30.4.2011: added cpio (to be used with mkinitrd)
 # 13.6.2011: added utempter (required at least by screen, but probably
@@ -99,6 +101,8 @@ networking_PACKAGES=(
 # 16.6.2011: added lvm2 & kernel-generic-smp
 # 29.7.2011: added acct (process accounting)
 # 30.7.2011: added sysvinit-functions & sysstat
+# 27.9.2011: TODO: lsof?
+# 23.10.2011: added lm_sensors
 essential_PACKAGES=(
   glibc-solibs
   kernel-huge-smp
@@ -135,6 +139,7 @@ essential_PACKAGES=(
   acct
   sysstat
   sysvinit-functions
+  lm_sensors
   ${networking_PACKAGES[*]}
 )
 # 29.4.2011: added libmpc
@@ -164,6 +169,7 @@ libs_PACKAGES=(
 )
 # 11.6.2011: added subversion
 # 19.6.2011: added ruby
+# 22.12.2011: added swig (required by audit)
 dev_PACKAGES=(
   patch
   make
@@ -185,6 +191,7 @@ dev_PACKAGES=(
   guile
   subversion
   ruby
+  swig
   ${libs_PACKAGES[*]}
 )
 bluetooth_PACKAGES=(
@@ -201,6 +208,7 @@ alsa_PACKAGES=(
 )
 # this should be quite complete set (at least in slackware 13.1)
 # 29.4.2011: added iwlwifi-100-ucode & iwlwifi-6xxx-ucode from 13.37
+# 9.7.2012: added wicd
 wireless_PACKAGES=(
   wireless-tools
   rt2860-firmware
@@ -220,6 +228,17 @@ wireless_PACKAGES=(
   iwlwifi-6xxx-ucode
   iw
   wpa_supplicant
+  wicd
+)
+# php might need alpine... at least it is in .SlackBuild
+# ...might also require gdbm, enchant, libjpeg, libpng, libXpm, libX11, lesstif(?), libxcb libXau libXdmcp, freetype, t1lib, gmp, aspell, mm, net-snmp(!!!)
+apache_PACKAGES=(
+  httpd
+  php
+  apr-util
+  apr
+  php
+  libmcrypt
 )
 # most of the packages containing an rc script and a few others
 server_PACKAGES=(
