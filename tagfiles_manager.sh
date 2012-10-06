@@ -2,7 +2,7 @@
 ################################################################################
 # file:		tagfiles_manager.sh
 # created:	29-09-2010
-# modified:	2012 Jul 09
+# modified:	2012 Oct 07
 #
 # the purpose of this script is to be able to produce more minimal slackware
 # installations without all the multimedia libraries or server software
@@ -167,6 +167,11 @@ libs_PACKAGES=(
   db44
   neon
 )
+# bison is required (at least) by aide
+# flex is required (at least) by aide
+# perl is needed by vim(!) on slack14.0
+#
+#
 # 11.6.2011: added subversion
 # 19.6.2011: added ruby
 # 22.12.2011: added swig (required by audit)
@@ -209,6 +214,7 @@ alsa_PACKAGES=(
 # this should be quite complete set (at least in slackware 13.1)
 # 29.4.2011: added iwlwifi-100-ucode & iwlwifi-6xxx-ucode from 13.37
 # 9.7.2012: added wicd
+# 6.10.2012: added kernel-firmware (slack14.0)
 wireless_PACKAGES=(
   wireless-tools
   rt2860-firmware
@@ -229,6 +235,7 @@ wireless_PACKAGES=(
   iw
   wpa_supplicant
   wicd
+  kernel-firmware
 )
 # php might need alpine... at least it is in .SlackBuild
 # ...might also require gdbm, enchant, libjpeg, libpng, libXpm, libX11, lesstif(?), libxcb libXau libXdmcp, freetype, t1lib, gmp, aspell, mm, net-snmp(!!!)
