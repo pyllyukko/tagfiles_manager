@@ -2,7 +2,7 @@
 ################################################################################
 # file:		tagfiles_manager.sh
 # created:	29-09-2010
-# modified:	2012 Oct 07
+# modified:	2012 Oct 12
 #
 # the purpose of this script is to be able to produce more minimal slackware
 # installations without all the multimedia libraries or server software
@@ -45,9 +45,11 @@
 }
 [ ${BASH_VERSINFO[0]} -eq 4 ] && shopt -s compat31
 ################################################################################
-declare -r TAGFILES_DIR="/home/pyllyukko/work/slackware/tagfiles/13.37/tagfiles"
+#declare -r TAGFILES_DIR="/home/pyllyukko/work/slackware/tagfiles/13.37/tagfiles"
+declare -r TAGFILES_DIR="/home/pyllyukko/work/slackware/tagfiles/14.0/tagfiles"
 declare    SLACKWARE_DIR="/mnt/slackware/slackware"
-declare -r SLACKWARE_VERSION="slackware-13.37"
+#declare -r SLACKWARE_VERSION="slackware-13.37"
+declare -r SLACKWARE_VERSION="slackware-14.0"
 declare -r FTP="ftp://ftp.slackware.com/pub/slackware/${SLACKWARE_VERSION}/slackware/"
 # -A option declares associative array.
 declare -A CAT_DESC=(
@@ -169,12 +171,13 @@ libs_PACKAGES=(
 )
 # bison is required (at least) by aide
 # flex is required (at least) by aide
-# perl is needed by vim(!) on slack14.0
+# perl & python is needed by vim(!) on slack14.0
 #
 #
 # 11.6.2011: added subversion
 # 19.6.2011: added ruby
 # 22.12.2011: added swig (required by audit)
+# 12.10.2012: removed guilce. not sure if it's necessary.
 dev_PACKAGES=(
   patch
   make
@@ -193,7 +196,7 @@ dev_PACKAGES=(
   strace
   bison
   flex
-  guile
+  #guile
   subversion
   ruby
   swig
