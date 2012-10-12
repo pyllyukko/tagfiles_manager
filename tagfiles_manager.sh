@@ -106,6 +106,7 @@ networking_PACKAGES=(
 # 30.7.2011: added sysvinit-functions & sysstat
 # 27.9.2011: TODO: lsof?
 # 23.10.2011: added lm_sensors
+# 12.10.2012: added gettext (do we need gettext-tools too?)
 essential_PACKAGES=(
   glibc-solibs
   kernel-huge-smp
@@ -143,12 +144,14 @@ essential_PACKAGES=(
   sysstat
   sysvinit-functions
   lm_sensors
+  gettext
   ${networking_PACKAGES[*]}
 )
 # 29.4.2011: added libmpc
 # 15.5.2011: added libpcap
 # 21.5.2011: added libnl, at least tcpdump requires this
 # 11.6.2011: added pcre, db44 & neon (neon required by svn)
+# 12.10.2012: added apr & apr-util, required at least by svn
 libs_PACKAGES=(
   mpfr
   glibc
@@ -169,6 +172,8 @@ libs_PACKAGES=(
   pcre
   db44
   neon
+  apr
+  apr-util
 )
 # bison is required (at least) by aide
 # flex is required (at least) by aide
@@ -583,7 +588,7 @@ function usage() {
 	  -C "a ap"		exclude all packages in categories a & ap
 	  (NOTE: you can also use the keyword "all")
 
-	categories in slackware 13.1:
+	categories in slackware 14.0:
 	(see the current ones from: http://www.slackware.com/install/softwaresets.php)
 	  a	- The base system
 	  ap	- Various applications that do not require the X Window System
@@ -599,6 +604,7 @@ function usage() {
 	  tcl	- The Tool Command Language, Tk, TclX, and TkDesk
 	  x	- The base X Window System
 	  xap	- X applications
+	  xfce	- Xfce Desktop Environment
 	  y	- Games
 
 	subcategories (defined in this script):
