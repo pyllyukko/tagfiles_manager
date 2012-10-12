@@ -68,6 +68,7 @@ declare -A CAT_DESC=(
   ["tcl"]="The Tool Command Language"
   ["x"]="The base X Window System"
   ["xap"]="X applications"
+  ["xfce"]="Xfce Desktop Environment"
   ["y"]="Games"
 )
 ################################################################################
