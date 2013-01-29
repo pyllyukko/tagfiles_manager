@@ -2,7 +2,7 @@
 ################################################################################
 # file:		tagfiles_manager.sh
 # created:	29-09-2010
-# modified:	2012 Oct 12
+# modified:	2012 Oct 21
 #
 # the purpose of this script is to be able to produce more minimal slackware
 # installations without all the multimedia libraries or server software
@@ -16,6 +16,7 @@
 #   - http://www.slackwiki.org/Tagfile_Install
 #   - http://connie.slackware.com/~vbatts/minimal/
 #   - http://www.microlinux.fr/slackware/tagfiles/
+#   - https://github.com/chrisjs/slackware-13.34-tagfiles
 #
 # TODO:
 #   - a switch to make use of maketags
@@ -107,6 +108,7 @@ networking_PACKAGES=(
 # 27.9.2011: TODO: lsof?
 # 23.10.2011: added lm_sensors
 # 12.10.2012: added gettext (do we need gettext-tools too?)
+# 21.10.2012: added mcelog
 essential_PACKAGES=(
   glibc-solibs
   kernel-huge-smp
@@ -145,6 +147,7 @@ essential_PACKAGES=(
   sysvinit-functions
   lm_sensors
   gettext
+  mcelog
   ${networking_PACKAGES[*]}
 )
 # 29.4.2011: added libmpc
@@ -152,6 +155,7 @@ essential_PACKAGES=(
 # 21.5.2011: added libnl, at least tcpdump requires this
 # 11.6.2011: added pcre, db44 & neon (neon required by svn)
 # 12.10.2012: added apr & apr-util, required at least by svn
+# 20.10.2012: gd is required by apcupsd
 libs_PACKAGES=(
   mpfr
   glibc
