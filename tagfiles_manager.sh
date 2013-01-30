@@ -45,12 +45,17 @@
 }
 [ ${BASH_VERSINFO[0]} -eq 4 ] && shopt -s compat31
 ################################################################################
-#declare -r TAGFILES_DIR="/home/pyllyukko/work/slackware/tagfiles/13.37/tagfiles"
 declare -r TAGFILES_DIR="/home/pyllyukko/work/slackware/tagfiles/14.0/tagfiles"
 declare    SLACKWARE_DIR="/mnt/slackware/slackware"
-#declare -r SLACKWARE_VERSION="slackware-13.37"
-declare -r SLACKWARE_VERSION="slackware-14.0"
-declare -r FTP="ftp://ftp.slackware.com/pub/slackware/${SLACKWARE_VERSION}/slackware/"
+
+# for x86:
+#declare -r SLACKWARE_VERSION="slackware-14.0"
+#declare -r FTP="ftp://ftp.slackware.com/pub/slackware/${SLACKWARE_VERSION}/slackware/"
+
+# for x86_64:
+declare -r SLACKWARE_VERSION="slackware64-14.0"
+declare -r FTP="ftp://ftp.slackware.com/pub/slackware/${SLACKWARE_VERSION}/slackware64/"
+
 # -A option declares associative array.
 declare -A CAT_DESC=(
   ["a"]="The base system"
@@ -149,6 +154,14 @@ essential_PACKAGES=(
   mcelog
   ${networking_PACKAGES[*]}
 )
+
+if [ "${SLACKWARE_VERSION:0:11}" = "slackware64" ]
+then
+  # TODO: libx86?
+  echo "adding few packages for the x86_64 arch..."
+  essential_PACKAGES+=(kernel-generic kernel-huge)
+fi
+
 # 29.4.2011: added libmpc
 # 15.5.2011: added libpcap
 # 21.5.2011: added libnl, at least tcpdump requires this
