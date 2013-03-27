@@ -113,6 +113,7 @@ networking_PACKAGES=(
 # 23.10.2011: added lm_sensors
 # 12.10.2012: added gettext (do we need gettext-tools too?)
 # 21.10.2012: added mcelog
+# 27.3.2013: added hdparm
 essential_PACKAGES=(
   glibc-solibs
   kernel-huge-smp
@@ -152,6 +153,7 @@ essential_PACKAGES=(
   lm_sensors
   gettext
   mcelog
+  hdparm
   ${networking_PACKAGES[*]}
 )
 
