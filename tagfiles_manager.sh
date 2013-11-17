@@ -155,6 +155,7 @@ essential_PACKAGES=(
   gettext
   mcelog
   hdparm
+  sudo
   ${networking_PACKAGES[*]}
 )
 
