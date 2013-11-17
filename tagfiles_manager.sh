@@ -102,6 +102,7 @@ networking_PACKAGES=(
   tcp_wrappers
   icmpinfo
   ca-certificates
+  dhcpcd
 )
 # 30.4.2011: added cpio (to be used with mkinitrd)
 # 13.6.2011: added utempter (required at least by screen, but probably
