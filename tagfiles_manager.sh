@@ -156,6 +156,7 @@ essential_PACKAGES=(
   mcelog
   hdparm
   sudo
+  lsof
   ${networking_PACKAGES[*]}
 )
 
