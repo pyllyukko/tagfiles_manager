@@ -195,6 +195,7 @@ libs_PACKAGES=(
   neon
   apr
   apr-util
+  libnl3
 )
 # bison is required (at least) by aide
 # flex is required (at least) by aide
