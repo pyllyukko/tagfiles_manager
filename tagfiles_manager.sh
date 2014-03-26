@@ -104,6 +104,10 @@ networking_PACKAGES=(
   ca-certificates
   dhcpcd
 )
+ipv6_PACKAGES=(
+  p11-kit
+  nettle
+)
 # 30.4.2011: added cpio (to be used with mkinitrd)
 # 13.6.2011: added utempter (required at least by screen, but probably
 #            many others too)
