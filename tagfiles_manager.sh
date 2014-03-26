@@ -119,6 +119,10 @@ ipv6_PACKAGES=(
 # 12.10.2012: added gettext (do we need gettext-tools too?)
 # 21.10.2012: added mcelog
 # 27.3.2013: added hdparm
+#
+# TODO:
+#   - gnupg2
+#     - libassuan
 essential_PACKAGES=(
   glibc-solibs
   kernel-huge-smp
