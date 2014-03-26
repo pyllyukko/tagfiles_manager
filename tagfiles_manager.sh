@@ -205,6 +205,7 @@ libs_PACKAGES=(
   apr-util
   libnl3
   db48
+  libyaml
 )
 # bison is required (at least) by aide
 # flex is required (at least) by aide
