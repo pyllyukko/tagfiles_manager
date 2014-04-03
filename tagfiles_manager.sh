@@ -165,6 +165,7 @@ essential_PACKAGES=(
   hdparm
   sudo
   lsof
+  genpower
   ${networking_PACKAGES[*]}
 )
 
