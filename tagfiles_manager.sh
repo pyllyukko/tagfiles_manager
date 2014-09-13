@@ -166,6 +166,7 @@ essential_PACKAGES=(
   sudo
   lsof
   genpower
+  bc
   ${networking_PACKAGES[*]}
 )
 
