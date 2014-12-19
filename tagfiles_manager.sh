@@ -221,6 +221,7 @@ libs_PACKAGES=(
 dev_PACKAGES=(
   patch
   make
+  cmake
   gcc
   binutils
   kernel-headers
