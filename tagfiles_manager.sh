@@ -210,6 +210,7 @@ libs_PACKAGES=(
   libyaml
   libarchive
   nettle
+  lzo
 )
 # bison is required (at least) by aide
 # flex is required (at least) by aide
