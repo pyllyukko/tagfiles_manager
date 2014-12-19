@@ -209,6 +209,7 @@ libs_PACKAGES=(
   db48
   libyaml
   libarchive
+  nettle
 )
 # bison is required (at least) by aide
 # flex is required (at least) by aide
