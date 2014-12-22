@@ -94,6 +94,7 @@ networking_PACKAGES=(
   tcpdump
   openldap-client
   mailx
+  procmail
   iputils
   biff+comsat
   iproute2
