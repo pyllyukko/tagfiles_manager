@@ -212,6 +212,7 @@ libs_PACKAGES=(
   libarchive
   nettle
   lzo
+  libffi
 )
 # bison is required (at least) by aide
 # flex is required (at least) by aide
