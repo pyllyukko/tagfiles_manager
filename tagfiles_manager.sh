@@ -462,7 +462,7 @@ function copy_tagfiles() {
     echo "${FUNCNAME}(): error: not a proper slackware directory!" 1>&2
     return 1
   }
-  DIRS=(`find "${1}" \( ! -wholename "${1}" -a -type d \) -maxdepth 1`)
+  DIRS=(`find "${1}" -maxdepth 1 \( ! -wholename "${1}" -a -type d \)`)
 
   for DIR in ${DIRS[*]}
   do
@@ -763,7 +763,7 @@ function modify_category() {
   [ "${CATEGORIES}" = "all" ] && {
     # this lists all the categories
     CATEGORIES="` \
-      find "${TAGFILES_DIR}" \( ! -wholename "${TAGFILES_DIR}" -a -type d \) -maxdepth 1 | \
+      find "${TAGFILES_DIR}" -maxdepth 1 \( ! -wholename "${TAGFILES_DIR}" -a -type d \) | \
       awk -F'/' '{print$NF}'
     `"
     #echo "${FUNCNAME}(): DEBUG: ${CATEGORIES}"
@@ -834,7 +834,7 @@ function check_opt_rec_packages() {
     return 1
   }
   local -a CATEGORY_DIRS=(` \
-    find "${TAGFILES_DIR}" \( ! -wholename "${TAGFILES_DIR}" -a -type d \) -maxdepth 1 | \
+    find "${TAGFILES_DIR}" -maxdepth 1 \( ! -wholename "${TAGFILES_DIR}" -a -type d \) | \
     awk -F'/' '{print$NF}'
   `)
   [ ${#CATEGORY_DIRS[*]} -eq 0 ] && {
@@ -903,7 +903,7 @@ function modify_packages() {
 function revert_tagfiles_from_original() {
   # TODO: this function is somewhat of a duplicate effort... replace all copying
   #       with one function.
-  local -a DIRS=(`find "${TAGFILES_DIR}" \( ! -wholename "${1}" -a -type d \) -maxdepth 1`)
+  local -a DIRS=(`find "${TAGFILES_DIR}" -maxdepth 1 \( ! -wholename "${1}" -a -type d \)`)
   local    DIR
   for DIR in ${DIRS[*]}
   do
