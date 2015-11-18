@@ -475,9 +475,9 @@ function copy_tagfiles() {
       echo "${FUNCNAME}(): error: couldn't create directory \`${TAGFILES_DIR}/${CATEGORY}'!" 1>&2
       return 1
     }
-    cp -v "${DIR}/tagfile" "${TAGFILES_DIR}/${CATEGORY}"
-    cp -v "${DIR}/tagfile" "${TAGFILES_DIR}/${CATEGORY}/tagfile.original"
-    cp -v "${DIR}/maketag"* "${TAGFILES_DIR}/${CATEGORY}"
+    cp -v "${DIR}/tagfile"	"${TAGFILES_DIR}/${CATEGORY}"
+    cp -v "${DIR}/tagfile"	"${TAGFILES_DIR}/${CATEGORY}/tagfile.original"
+    cp -v "${DIR}/maketag"*	"${TAGFILES_DIR}/${CATEGORY}"
   done
 
   return 0
