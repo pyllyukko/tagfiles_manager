@@ -760,6 +760,12 @@ function modify_category() {
     return 1
   }
 
+  if [ ! -d "${TAGFILES_DIR}" ]
+  then
+    echo "${FUNCNAME}(): error: tagfiles dir does not exist!" 1>&2
+    return 1
+  fi
+
   [ "${CATEGORIES}" = "all" ] && {
     # this lists all the categories
     CATEGORIES="` \
