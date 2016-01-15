@@ -169,6 +169,7 @@ essential_PACKAGES=(
   lsof
   genpower
   bc
+  perl
   ${networking_PACKAGES[*]}
 )
 
