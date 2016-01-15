@@ -45,16 +45,17 @@
 }
 [ ${BASH_VERSINFO[0]} -eq 4 ] && shopt -s compat31
 ################################################################################
-declare -r TAGFILES_DIR="/home/pyllyukko/work/slackware/tagfiles/14.1/tagfiles"
-declare    SLACKWARE_DIR="/mnt/slackware/slackware"
-
 # for x86:
 #declare -r SLACKWARE_VERSION="slackware-14.1"
 #declare -r FTP="ftp://ftp.slackware.com/pub/slackware/${SLACKWARE_VERSION}/slackware/"
 
 # for x86_64:
-declare -r SLACKWARE_VERSION="slackware64-14.1"
+declare -r SLACKWARE_VERSION="slackware64-current"
 declare -r FTP="ftp://ftp.slackware.com/pub/slackware/${SLACKWARE_VERSION}/slackware64/"
+
+CWD=$( realpath $( dirname "${0}" ) )
+declare -r TAGFILES_DIR="${CWD}/tagfiles/${SLACKWARE_VERSION}/tagfiles"
+declare    SLACKWARE_DIR="/mnt/slackware/slackware"
 
 # -A option declares associative array.
 declare -A CAT_DESC=(
