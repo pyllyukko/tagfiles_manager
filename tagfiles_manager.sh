@@ -130,7 +130,7 @@ essential_PACKAGES=(
   kernel-huge-smp
   kernel-generic-smp
   lilo
-  udev
+  eudev
   aaa_terminfo
   kbd
   man
