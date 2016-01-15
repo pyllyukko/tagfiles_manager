@@ -426,6 +426,7 @@ SOUND_PACKAGES=(
 # TODO: printing, other audio
 peripherals_PACKAGES=(
   pilot-link
+  x3270
 )
 ################################################################################
 function verify_tagfile_checksums() {
