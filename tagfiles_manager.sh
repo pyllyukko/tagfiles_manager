@@ -422,6 +422,7 @@ SOUND_PACKAGES=(
   taglib
   taglib-extras
   wavpack
+  pamixer
 )
 # TODO: printing, other audio
 peripherals_PACKAGES=(
