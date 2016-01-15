@@ -170,6 +170,7 @@ essential_PACKAGES=(
   genpower
   bc
   perl
+  dbus
   ${networking_PACKAGES[*]}
 )
 
