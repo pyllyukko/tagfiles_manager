@@ -18,8 +18,8 @@ Then you need to configure the tagfiles, for example:
 
 The command above generated tagfiles as follows:
 * First disable all packages
-* **-q** enables all "recommended" packages (this comes from Slackware itself)
-* **-s** option enables the essential & dev categories (internal categories for tagfiles manager)
-* **-g** greps for the package counts
+* ```-q``` enables all "recommended" packages (this comes from Slackware itself)
+* ```-s``` option enables the essential & dev categories (internal categories for tagfiles manager)
+* ```-g``` greps for the package counts
 
 The result is a very minimal installation with only 135 packages, but it still has fully functional dev environment to compile stuff.
