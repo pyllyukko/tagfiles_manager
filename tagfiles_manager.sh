@@ -248,6 +248,7 @@ dev_PACKAGES=(
   subversion
   ruby
   swig
+  gc
   ${libs_PACKAGES[*]}
 )
 bluetooth_PACKAGES=(
