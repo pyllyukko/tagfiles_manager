@@ -225,7 +225,6 @@ libs_PACKAGES=(
 # 11.6.2011: added subversion
 # 19.6.2011: added ruby
 # 22.12.2011: added swig (required by audit)
-# 12.10.2012: removed guile. not sure if it's necessary.
 dev_PACKAGES=(
   patch
   make
@@ -245,7 +244,7 @@ dev_PACKAGES=(
   strace
   bison
   flex
-  #guile
+  guile
   subversion
   ruby
   swig
