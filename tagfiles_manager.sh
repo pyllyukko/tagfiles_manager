@@ -249,6 +249,7 @@ dev_PACKAGES=(
   ruby
   swig
   gc
+  libunistring
   ${libs_PACKAGES[*]}
 )
 bluetooth_PACKAGES=(
