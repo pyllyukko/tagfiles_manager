@@ -6,7 +6,13 @@ This is a [tagfiles](http://www.slackbook.org/html/package-management-making-tag
 Examples
 --------
 
-For example:
+First you need to fetch the tagfile templates with:
+
+```
+$ bash ./tagfiles_manager.sh -f
+```
+
+Then you need to configure the tagfiles, for example:
 
     $ bash ./tagfiles_manager.sh -C all -q -s "essential dev" -g
 
