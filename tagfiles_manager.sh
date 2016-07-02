@@ -50,7 +50,7 @@
 #declare -r FTP="ftp://ftp.slackware.com/pub/slackware/${SLACKWARE_VERSION}/slackware/"
 
 # for x86_64:
-declare -r SLACKWARE_VERSION="slackware64-current"
+declare -r SLACKWARE_VERSION="slackware64-14.2"
 declare -r FTP="ftp://ftp.slackware.com/pub/slackware/${SLACKWARE_VERSION}/slackware64/"
 
 CWD=$( realpath $( dirname "${0}" ) )
