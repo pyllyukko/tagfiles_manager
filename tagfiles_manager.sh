@@ -216,6 +216,7 @@ libs_PACKAGES=(
   nettle
   lzo
   libffi
+  gmp
 )
 # bison is required (at least) by aide
 # flex is required (at least) by aide
