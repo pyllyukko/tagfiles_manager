@@ -170,6 +170,7 @@ essential_PACKAGES=(
   bc
   perl
   dbus
+  glibc-zoneinfo
   ${networking_PACKAGES[*]}
 )
 
