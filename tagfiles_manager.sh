@@ -217,6 +217,7 @@ libs_PACKAGES=(
   lzo
   libffi
   gmp
+  icu4c
 )
 # bison is required (at least) by aide
 # flex is required (at least) by aide
