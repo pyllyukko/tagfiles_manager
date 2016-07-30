@@ -122,9 +122,6 @@ ipv6_PACKAGES=(
 # 21.10.2012: added mcelog
 # 27.3.2013: added hdparm
 #
-# TODO:
-#   - gnupg2
-#     - libassuan
 essential_PACKAGES=(
   glibc-solibs
   kernel-huge-smp
@@ -138,6 +135,8 @@ essential_PACKAGES=(
   findutils
   sysklogd
   gnupg
+  gnupg2
+  libassuan
   cyrus-sasl
   dialog
   which
