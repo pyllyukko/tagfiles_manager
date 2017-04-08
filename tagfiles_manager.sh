@@ -136,6 +136,7 @@ essential_PACKAGES=(
   sysklogd
   gnupg
   gnupg2
+  pinentry
   libassuan
   cyrus-sasl
   dialog
@@ -171,6 +172,7 @@ essential_PACKAGES=(
   perl
   dbus
   glibc-zoneinfo
+  texinfo
   ${networking_PACKAGES[*]}
 )
 
@@ -218,6 +220,10 @@ libs_PACKAGES=(
   libffi
   gmp
   icu4c
+  libcap-ng
+  libcap
+  pth
+  libsecret
 )
 # bison is required (at least) by aide
 # flex is required (at least) by aide
