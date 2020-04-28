@@ -89,7 +89,7 @@ networking_PACKAGES=(
   curl
   tcpdump
   openldap-client
-  mailx
+  s-nail
   procmail
   iputils
   biff+comsat
@@ -125,7 +125,7 @@ essential_PACKAGES=(
   eudev
   aaa_terminfo
   kbd
-  man
+  man-db
   groff
   findutils
   sysklogd
@@ -202,7 +202,7 @@ libs_PACKAGES=(
   libpcap
   libnl
   pcre
-  db44
+  db48
   neon
   apr
   apr-util
@@ -217,7 +217,7 @@ libs_PACKAGES=(
   icu4c
   libcap-ng
   libcap
-  pth
+  npth
   libsecret
 )
 # bison is required (at least) by aide
@@ -242,7 +242,7 @@ dev_PACKAGES=(
   m4
   libtool
   pkg-config
-  python
+  python3
   'gcc-g++'
   strace
   bison
