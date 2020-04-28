@@ -38,12 +38,7 @@
 #   - support downloading/using tagfiles from http://www.microlinux.fr/slackware/tagfiles/public-server/
 #
 ################################################################################
-[ ${BASH_VERSINFO[0]} -ne 4 ] && {
-  echo -e "error: bash version != 4, this script might not work properly!" 1>&2
-  echo    "       you can bypass this check by commenting out lines $[${LINENO}-2]-$[${LINENO}+2]." 1>&2
-  exit 1
-}
-[ ${BASH_VERSINFO[0]} -eq 4 ] && shopt -s compat31
+shopt -s compat31
 ################################################################################
 # for x86:
 #declare -r SLACKWARE_VERSION="slackware-14.1"
