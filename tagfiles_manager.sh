@@ -45,7 +45,7 @@ shopt -s compat31
 #declare -r FTP="ftp://ftp.slackware.com/pub/slackware/${SLACKWARE_VERSION}/slackware/"
 
 # for x86_64:
-declare -r SLACKWARE_VERSION="slackware64-14.2"
+declare -r SLACKWARE_VERSION="slackware64-15.0"
 declare -r FTP="ftp://ftp.slackware.com/pub/slackware/${SLACKWARE_VERSION}/slackware64/"
 
 CWD=$( realpath $( dirname "${0}" ) )
@@ -83,6 +83,11 @@ networking_PACKAGES=(
   network-scripts
   net-tools
   iptables
+  nftables
+  jansson
+  libnftnl
+  libpcap
+  libnl3
   wget
   rsync
   openssl
@@ -95,11 +100,13 @@ networking_PACKAGES=(
   biff+comsat
   iproute2
   ntp
+  libedit
   gnutls
   tcp_wrappers
   icmpinfo
   ca-certificates
   dhcpcd
+  libmnl
 )
 ipv6_PACKAGES=(
   p11-kit
@@ -131,6 +138,9 @@ essential_PACKAGES=(
   sysklogd
   gnupg
   gnupg2
+  libgcrypt
+  libgpg-error
+  icu4c
   pinentry
   libassuan
   cyrus-sasl
@@ -168,6 +178,11 @@ essential_PACKAGES=(
   dbus
   glibc-zoneinfo
   texinfo
+  pam
+  elogind
+  libunistring
+  libsodium
+  libseccomp
   ${networking_PACKAGES[*]}
 )
 
