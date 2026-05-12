@@ -93,7 +93,7 @@ networking_PACKAGES=(
   openssl
   curl
   tcpdump
-  openldap-client
+  openldap
   s-nail
   procmail
   iputils
@@ -125,9 +125,9 @@ ipv6_PACKAGES=(
 # 27.3.2013: added hdparm
 #
 essential_PACKAGES=(
-  glibc-solibs
-  kernel-huge-smp
-  kernel-generic-smp
+  aaa_glibc-solibs
+  kernel-huge
+  kernel-generic
   lilo
   eudev
   aaa_terminfo
@@ -185,13 +185,6 @@ essential_PACKAGES=(
   libseccomp
   ${networking_PACKAGES[*]}
 )
-
-if [ "${SLACKWARE_VERSION:0:11}" = "slackware64" ]
-then
-  # TODO: libx86?
-  echo "adding few packages for the x86_64 arch..."
-  essential_PACKAGES+=(kernel-generic kernel-huge)
-fi
 
 # 29.4.2011: added libmpc
 # 15.5.2011: added libpcap
@@ -274,38 +267,30 @@ bluetooth_PACKAGES=(
   blueman
   bluez
   bluez-firmware
-  bluez-hcidump
 )
 # TODO: other sound libraries, players and stuff...
 alsa_PACKAGES=(
   alsa-lib
   alsa-oss
   alsa-utils
+  alsa-plugins
+  pulseaudio
+  pipewire
+  pcaudiolib
+  esound
+  audiofile
 )
 # this should be quite complete set (at least in slackware 13.1)
 # 29.4.2011: added iwlwifi-100-ucode & iwlwifi-6xxx-ucode from 13.37
 # 9.7.2012: added wicd
 # 6.10.2012: added kernel-firmware (slack14.0)
 wireless_PACKAGES=(
-  wireless-tools
-  rt2860-firmware
-  rt2870-firmware
-  rt61-firmware
-  rt71w-firmware
+  wireless_tools
   zd1211-firmware
   ipw2100-fw
   ipw2200-fw
-  iwlwifi-1000-ucode
-  iwlwifi-3945-ucode
-  iwlwifi-4965-ucode
-  iwlwifi-5000-ucode
-  iwlwifi-5150-ucode
-  iwlwifi-6000-ucode
-  iwlwifi-100-ucode
-  iwlwifi-6xxx-ucode
   iw
   wpa_supplicant
-  wicd
   kernel-firmware
 )
 # php might need alpine... at least it is in .SlackBuild
@@ -320,13 +305,14 @@ apache_PACKAGES=(
 )
 # most of the packages containing an rc script and a few others
 server_PACKAGES=(
-  sendmail
-  sendmail-cf
+  postfix
+  dovecot
   dnsmasq
+  bind
   inetd
   nfs-utils
-  portmap
-  mysql
+  rpcbind
+  mariadb
   httpd
   samba
   net-snmp
@@ -334,10 +320,11 @@ server_PACKAGES=(
   yptools
   cyrus-sasl
   netatalk
-  imapd
   netkit-rsh
   netkit-timed
   openssh
+  openvpn
+  krb5
   pidentd
   popa3d
   proftpd
@@ -345,8 +332,6 @@ server_PACKAGES=(
   vsftpd
 )
 obex_PACKAGES=(
-  obex-data-server
-  obexfs
   obexftp
   openobex
 )
